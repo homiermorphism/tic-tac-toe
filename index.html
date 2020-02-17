@@ -2,18 +2,30 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Satisfy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"></link>
     <title></title>
   </head>
   <body>
 
     <div class="player-info">
-      <input type="text" value="Player One"></input>
+      <div class="input-field">
+        Player One :
+        <input type="text"
+          id="player-one"
+          class="input"
+          placeholder="Player One">
+      </div>
       <br>
-      <button id="submit-one">Submit</button>
+      <div class="input-field">
+        Player Two :
+        <input type="text"
+          id="player-two"
+          class="input"
+          placeholder="Player Two">
+      </div>
       <br>
-      <input type="text" value="Player Two"></input>
-      <br>
-      <button id="submit-two">Submit</button>
+      <button id="submit-players">Submit</button>
       <br>
       <button>Start Game</button>
     </div>
