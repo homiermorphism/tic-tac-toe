@@ -11,14 +11,33 @@
 .player-info {
   font-family: 'Satisfy', cursive;
   background-color: #b2dfdb;
-  border: 20px solid #283593;
+  border: 15px solid #283593;
   border-radius: 10px;
   font-size: 150%;
   width: 500px;
   text-align: center;
   padding: 20px;
   color: #283593;
+  margin: auto;
 }
+
+.players {
+  width: 200px;
+  margin: auto;
+}
+
+.player {
+  font-family: 'Satisfy', cursive;
+  background-color: #b2dfdb;
+  border: 15px solid #283593;
+  border-radius: 10px;
+  font-size: 150%;
+  width: 100px;
+  text-align: center;
+  padding: 20px;
+  color: #283593;
+}
+
 
 .input {
   font: 16px arial,sans-serif;
@@ -57,4 +76,8 @@ button {
 
 button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.hide {
+  display: none;
 }
