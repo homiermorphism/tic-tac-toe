@@ -8,29 +8,35 @@
   </head>
   <body>
 
-    <div class="player-info">
-      <div class="input-field">
-        Player One :
-        <input type="text"
+    <div class="players">
+      <div class="player">
+        <b><u>Player One - X</u></b>
+        <br>
+        <div id="input-one">
+          <input type="text"
           id="player-one"
           class="input"
-          placeholder="Player One">
+          placeholder="enter name">
+        </div>
+        <button id="submit-one">Submit</button>
       </div>
       <br>
-      <div class="input-field">
-        Player Two :
-        <input type="text"
+      <div class="player">
+        <b><u>Player Two - O</u></b>
+        <br>
+        <div id="input-two">
+          <input type="text"
           id="player-two"
           class="input"
-          placeholder="Player Two">
+          placeholder="enter name">
+        </div>
+        <button id="submit-two">Submit</button>
       </div>
-      <br>
-      <button id="start-game">Start Game</button>
     </div>
 
     <div class="container">
-      <div class="players">
-      </div>
+      <button id="start-game">Start Game</button>
+      <button id="new-game" class="hide">New Game</button>
       <div class="game-board hide">
         <div id="1" class="board-piece"></div>
         <div id="2" class="board-piece"></div>
@@ -43,6 +49,7 @@
         <div id="9" class="board-piece"></div>
       </div>
     </div>
+
 
 
     <script src="script.js"></script>

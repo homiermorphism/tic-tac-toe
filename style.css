@@ -1,3 +1,7 @@
+body {
+  display: inline-flex;
+}
+
 .game-board {
   display: grid;
   grid-template-rows: repeat(3, 300px);
@@ -21,9 +25,14 @@
   margin: auto;
 }
 
-.players {
-  width: 200px;
+.container {
+  width: 100vw;
   margin: auto;
+  display: inline;
+}
+
+.players {
+  width: auto;
 }
 
 .player {
@@ -32,7 +41,7 @@
   border: 15px solid #283593;
   border-radius: 10px;
   font-size: 150%;
-  width: 100px;
+  width: 200px;
   text-align: center;
   padding: 20px;
   color: #283593;
@@ -55,6 +64,9 @@
   cursor: pointer;
 }
 
+.box-shadow {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
 
 .input {
   font: 16px arial,sans-serif;
@@ -68,12 +80,12 @@
   padding: 10px;
 }
 
-.input-field label {
+.player label {
   color: #283593;
   font-size: 150%;
 }
 
-.input-field input[type=text]:focus {
+.player input[type=text]:focus {
   box-shadow: 0 3px 0 0 #000;
   border: none;
 }
