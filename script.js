@@ -42,14 +42,46 @@ const keepTrack = () => {
   }
 }
 
+let xDivs = [];
+let oDivs = [];
+
 const placeMarker = (e) => {
   if (e.target.innerHTML === '') {
     let currentPlayer = keepTrack();
     if (currentPlayer === 'player one') {
       e.target.innerHTML = 'x';
+      xDivs.push(Number(e.target.id));
     }
     else if (currentPlayer === 'player two') {
       e.target.innerHTML = 'o';
+      oDivs.push(Number(e.target.id));
+    }
+  }
+  winner();
+}
+
+const winner = () => {
+  let winningCombos = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9],
+    [1,5,9],
+    [1,4,7],
+    [2,5,8],
+    [3,6,9],
+    [3,5,7]
+  ];
+
+  for (i=0; i < winningCombos.length; i++) {
+    if (winningCombos[i].includes(xDivs[0]) &&
+    winningCombos[i].includes(xDivs[1]) &&
+    winningCombos[i].includes(xDivs[2])) {
+      alert('Player one wins!');
+    }
+    else if (winningCombos[i].includes(oDivs[0]) &&
+    winningCombos[i].includes(oDivs[1]) &&
+    winningCombos[i].includes(oDivs[2])) {
+      alert('Player two wins!');
     }
   }
 }
