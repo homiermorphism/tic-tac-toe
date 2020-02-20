@@ -23,8 +23,38 @@ const startGame = () => {
   playerTwoDiv.innerHTML = playerTwo;
   playersContainer.appendChild(playerTwoDiv);
 
+  let gameBoard = document.querySelector('.game-board');
+  gameBoard.classList.remove('hide');
+}
+
+let currentPlayerArray = [1];
+const keepTrack = () => {
+  let last = currentPlayerArray[currentPlayerArray.length - 1];
+  if (last % 2 === 1) {
+    let currentPlayer = 'player one';
+    currentPlayerArray.push(last + 1);
+    return currentPlayer;
+  }
+  else if (last % 2 === 0) {
+    let currentPlayer = 'player two';
+    currentPlayerArray.push(last + 1);
+    return currentPlayer;
+  }
+}
+
+const placeMarker = (e) => {
+  if (e.target.innerHTML === '') {
+    let currentPlayer = keepTrack();
+    if (currentPlayer === 'player one') {
+      e.target.innerHTML = 'x';
+    }
+    else if (currentPlayer === 'player two') {
+      e.target.innerHTML = 'o';
+    }
+  }
 }
 
 document.addEventListener('click', function(e) {
   if (e.target.id === 'start-game') startGame();
+  if (e.target.classList.contains('board-piece')) placeMarker(e);
 });
