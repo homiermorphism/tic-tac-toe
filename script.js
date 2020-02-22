@@ -1,3 +1,28 @@
+const start = () => {
+  let startButton = document.getElementById('start');
+  startButton.classList.add('hide');
+
+  let screenTwo = document.getElementById('screen-two');
+  screenTwo.classList.remove('hide');
+}
+
+const screenTwo = () => {
+  let screenTwo = document.getElementById('screen-two');
+  screenTwo.classList.add('hide');
+
+  let screenThree = document.getElementById('screen-three');
+  screenThree.classList.remove('hide');
+}
+
+const screenThree = () => {
+  let screenThree = document.getElementById('screen-three');
+  screenThree.classList.add('hide');
+
+  let boardContainer = document.querySelector('.board-container');
+  boardContainer.classList.remove('hide');
+}
+
+
 const startGame = () => {
   let gameBoard = document.querySelector('.game-board');
   gameBoard.classList.remove('hide');
@@ -7,6 +32,9 @@ const startGame = () => {
 
   let newGameButton = document.getElementById('new-game');
   newGameButton.classList.remove('hide');
+
+  playerOne();
+  playerTwo();
 }
 
 const newGame = () => {
@@ -66,10 +94,10 @@ const placeMarker = (e) => {
       oDivs.push(Number(e.target.id));
     }
   }
-  winner();
+  checkWinner();
 }
 
-const winner = () => {
+const checkWinner = (element) => {
   let winningCombos = [
     [1,2,3],
     [4,5,6],
@@ -82,19 +110,16 @@ const winner = () => {
   ];
 
   for (i=0; i < winningCombos.length; i++) {
-    if (winningCombos[i].includes(xDivs[0]) &&
-    winningCombos[i].includes(xDivs[1]) &&
-    winningCombos[i].includes(xDivs[2])) {
-      alert('Player one wins!');
-      endGame();
+    if (winningCombos[i].every(check)) {
+      alert('hi');
     }
-    else if (winningCombos[i].includes(oDivs[0]) &&
-    winningCombos[i].includes(oDivs[1]) &&
-    winningCombos[i].includes(oDivs[2])) {
-      alert('Player two wins!');
-      endGame();
-    }
+    console.log(winningCombos[i]);
+    console.log(winningCombos[i].every(check));
   }
+}
+
+const check = (element) => {
+  if (element in xDivs);
 }
 
 const endGame = () => {
@@ -114,6 +139,9 @@ const endGame = () => {
 }
 
 document.addEventListener('click', function(e) {
+  if (e.target.id === 'start') start();
+  if (e.target.id === 'submit-one') screenTwo();
+  if (e.target.id === 'submit-two') screenThree();
   if (e.target.id === 'start-game') startGame();
   if (e.target.id === 'new-game') newGame();
   if (e.target.classList.contains('board-piece')) placeMarker(e);

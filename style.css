@@ -1,5 +1,21 @@
 body {
+  background: url('wild_flowers.png');
+  font-size: 14pt;
+  justify-content: center;
+}
+
+.center {
   display: inline-flex;
+  width: 100vw;
+  margin: auto;
+}
+
+h1 {
+  color: #283593;
+  text-align: center;
+  font-family: 'Satisfy', cursive;
+  font-size: 500%;
+  margin: -8px;
 }
 
 .game-board {
@@ -12,39 +28,23 @@ body {
   display: none;
 }
 
-.player-info {
-  font-family: 'Satisfy', cursive;
-  background-color: #b2dfdb;
-  border: 15px solid #283593;
-  border-radius: 10px;
-  font-size: 150%;
-  width: 500px;
-  text-align: center;
-  padding: 20px;
-  color: #283593;
-  margin: auto;
-}
-
-.container {
+.board-container {
   width: 100vw;
   margin: auto;
   display: inline;
 }
 
-.players {
-  width: auto;
-}
-
 .player {
   font-family: 'Satisfy', cursive;
   background-color: #b2dfdb;
-  border: 15px solid #283593;
+  border: 7px solid #283593;
   border-radius: 10px;
   font-size: 150%;
-  width: 200px;
+  width: 300px;
   text-align: center;
   padding: 20px;
   color: #283593;
+  margin: auto;
 }
 
 .game-board {
@@ -91,16 +91,36 @@ body {
 }
 
 button {
-  background-color: #283593; /* Green */
+  background-color: #283593;
   border: none;
   color: white;
   padding: 9px 20px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
   cursor: pointer;
   font-family: 'Satisfy', cursive;
+  border-radius: 3px;
+}
+
+.submit-btn {
+  font-size: 16px;
+}
+
+
+#start {
+  height: 100px;
+  width: 200px;
+  font-size: 300%;
+  margin: auto;
+  margin-top: 15vh;
+}
+
+#start-game {
+  height: 100px;
+  width: 200px;
+  font-size: 150%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 button:hover {
