@@ -36,15 +36,26 @@ h1 {
 
 .player {
   font-family: 'Satisfy', cursive;
-  background-color: #b2dfdb;
-  border: 7px solid #283593;
-  border-radius: 10px;
   font-size: 150%;
   width: 300px;
   text-align: center;
   padding: 20px;
   color: #283593;
   margin: auto;
+}
+
+.current-player {
+  font-family: 'Satisfy', cursive;
+  font-size: 150%;
+  width: 300px;
+  text-align: center;
+  padding: 20px;
+  color: #283593;
+  margin: auto;
+}
+
+.sidebar {
+  margin-left: 50px;
 }
 
 .game-board {
@@ -104,6 +115,7 @@ button {
 
 .submit-btn {
   font-size: 16px;
+  margin: 20px;
 }
 
 

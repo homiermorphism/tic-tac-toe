@@ -35,19 +35,33 @@
     <div class="player hide" id="screen-three">
       <b>Player Two (O)</b>
       <br>
-      <div id="input-two">
-        <input type="text"
-        id="player-two"
-        class="input"
-        placeholder="enter name">
+      <form id="player-two-options">
+        <input type="radio" name="player-two" value="human">Human
+        <input type="radio" name="player-two" value="computer">Computer
+      </form>
+      <button class="submit-btn" id="submit-two">Submit</button>
+
+      <div class="hide" id="human-player-two">
+        <div id="input-two">
+          <input type="text"
+          id="player-two"
+          class="input"
+          placeholder="enter name">
+        </div>
+        <button class="submit-btn" id="submit-three">Start Game</button>
       </div>
-      <button class="submit-btn" id="submit-two">Start Game</button>
+    </div>
+
+    <!-- game board screen -->
+    <div class="sidebar hide" id="sidebar">
+      <div class="current-player">
+      </div>
+
+      <button id="new-game">New Game</button>
     </div>
 
 
-
     <div class="board-container hide">
-      <button id="new-game">New Game</button>
       <div class="game-board">
         <div id="1" class="board-piece"></div>
         <div id="2" class="board-piece"></div>
