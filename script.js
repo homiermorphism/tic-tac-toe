@@ -1,5 +1,6 @@
 const playerOne = () => {
-  let playerOneName = document.getElementById('player-one').value;
+  let playerOneName = 'Player One';
+  playerOneName = document.getElementById('player-one').value;
   if (playerOneName === '') {
     playerOneName = 'Player One';
   }
@@ -9,7 +10,7 @@ const playerOne = () => {
 const playerTwoChoice = () => {
   let playerTwoOptions = document.querySelector("input[name='player-two']");
 
-  let choice = '';
+  let choice = 'computer';
   if (playerTwoOptions.checked) {
     choice = 'human';
   }
@@ -19,6 +20,8 @@ const playerTwoChoice = () => {
   return choice;
 }
 
+// when the user clicks on the computer option, change the "submit" button
+// to the "start game" button
 const changeButton = () => {
   let button = document.getElementById('submit-two');
   let choice = playerTwoChoice();
@@ -26,7 +29,6 @@ const changeButton = () => {
   if (choice === 'human') {
     button.innerHTML = 'Submit';
   }
-
   else if (choice === 'computer') {
     button.innerHTML = 'Start Game';
   }
@@ -34,32 +36,19 @@ const changeButton = () => {
 
 const playerTwo = () => {
   let choice = playerTwoChoice();
+  let playerTwoName = 'Player Two';
 
   if (choice === 'human') {
-    let playerTwoName = document.getElementById('player-two').value;
+    playerTwoName = document.getElementById('player-two').value;
 
     if (playerTwoName === '') {
       playerTwoName = 'Player Two';
     }
   }
   else if (choice === 'computer') {
-    let playerTwoName = 'Computer';
+    playerTwoName = 'Computer';
   }
   return playerTwoName;
-}
-
-const current = () => {
-  let div = document.querySelector('.current-player');
-  let playerOneName = playerOne();
-  let playerTwoName = playerTwo();
-  let currentName = keepTrack();
-
-  if (currentName === 'player one') {
-    div.innerHTML = playerOneName + "'s Turn";
-  }
-  else if (currentName === 'player two') {
-    div.innerHTML = playerTwoName + "'s Turn";
-  }
 }
 
 const start = () => {
@@ -104,107 +93,147 @@ const startGame = () => {
 
   let sidebar = document.getElementById('sidebar');
   sidebar.classList.remove('hide');
+
+  let currentPlayer = document.querySelector('.current-player');
+  currentPlayer.innerHTML = "Player One's Turn";
 }
 
 const newGame = () => {
-  endGame();
-  let gameBoard = document.querySelector('.game-board');
+  resetGame();
+
+  let gameBoard = document.querySelector('.board-container');
   gameBoard.classList.remove('hide');
+
+  let winnerScreen = document.querySelector('.winner-screen');
+  winnerScreen.classList.add('hide');
 }
 
 let currentPlayerArray = [1];
 
+const resetGame = () => {
+  let boardPieces = document.querySelectorAll('.board-piece');
+
+  for (i=0; i < boardPieces.length; i++) {
+    boardPieces[i].innerHTML = '';
+  }
+
+  xDivs = [];
+  oDivs = [];
+  currentPlayerArray = [1];
+}
+
 const keepTrack = () => {
   let last = currentPlayerArray[currentPlayerArray.length - 1];
+
+  let currentPlayer = 'player one';
   if (last % 2 === 1) {
-    let currentPlayer = 'player one';
+    currentPlayer = 'player one';
     currentPlayerArray.push(last + 1);
-    return currentPlayer;
   }
   else if (last % 2 === 0) {
-    let currentPlayer = 'player two';
+    currentPlayer = 'player two';
     currentPlayerArray.push(last + 1);
-    return currentPlayer;
   }
+  return currentPlayer;
 }
 
 let xDivs = [];
 let oDivs = [];
 
+// selects a square for the dumb computer
 const compChoice = () => {
   let boardPieces = document.querySelectorAll('.board-piece');
-
   let array = [];
+  let choice = '';
+
   for (i=0; i < 9; i++) {
     if (boardPieces[i].innerHTML === '') {
       array.push(i);
     }
   }
-  let choice = array[Math.floor(Math.random()*array.length)];
-  boardPieces[choice].click();
+
+  if (array.length === 0) {
+    winnerScreen();
+  }
+  else {
+    choice = array[Math.floor(Math.random()*array.length)];
+    boardPieces[choice].click();
+    oDivs.push(choice);
+  }
 }
 
+// when currentPlayer === 'player one', that means the user that CLICKED
+// was player one, so when setting the name, it's actually player two's turn
 const placeMarker = (e) => {
   if (e.target.innerHTML === '') {
     let currentPlayer = keepTrack();
+    console.log(currentPlayer);
     let choice = playerTwoChoice();
+    let div = document.querySelector('.current-player');
 
     if (currentPlayer === 'player one') {
       if (choice === 'human') {
         e.target.innerHTML = 'X';
         xDivs.push(Number(e.target.id));
+        div.innerHTML = playerTwo() + "'s Turn";
       }
       else {
         e.target.innerHTML = 'X';
         xDivs.push(Number(e.target.id));
         compChoice();
+        div.innerHTML = playerOne() + "'s Turn";
       }
     }
     else if (currentPlayer === 'player two') {
       e.target.innerHTML = 'O';
       oDivs.push(Number(e.target.id));
+      div.innerHTML = playerOne() + "'s Turn";
     }
   }
   checkWinner();
+  winnerScreen();
 }
 
-const checkWinner = (element) => {
-  let winningCombos = [
-    [1,2,3],
-    [4,5,6],
-    [7,8,9],
-    [1,5,9],
-    [1,4,7],
-    [2,5,8],
-    [3,6,9],
-    [3,5,7]
-  ];
-
-  for (i=0; i < winningCombos.length; i++) {
-    if (winningCombos[i].every(check)) {
-      alert('hi');
-    }
-  }
-}
-
-const check = (element) => {
-  if (element in xDivs);
-}
-
-const endGame = () => {
+const checkWinner = () => {
   let boardPieces = document.querySelectorAll('.board-piece');
+
   for (i=0; i < boardPieces.length; i++) {
-    boardPieces[i].innerHTML = '';
+    if (boardPieces[i].innerHTML === boardPieces[i + 1].innerHTML
+        && boardPieces[i].innerHTML === boardPieces[i + 2].innerHTML
+        ) {
+            if (boardPieces[i].innerHTML === 'X') {
+
+            }
+            if (boardPieces[i].innerHTML === 'O') {
+
+            }
+          }
   }
-  xDivs = [];
-  oDivs = [];
-  let gameBoard = document.querySelector('.game-board');
+}
+
+const winnerScreen = () => {
+  let wScreen = document.querySelector('.winner-screen');
+  wScreen.classList.remove('hide');
+
+  let gameBoard = document.querySelector('.board-container');
   gameBoard.classList.add('hide');
 
-  let newGameButton = document.getElementById('new-game');
-  newGameButton.classList.remove('hide');
+  let array = [];
+  let boardPieces = document.querySelectorAll('.board-piece');
 
-  currentPlayerArray = [1];
+  for (i=0; i < boardPieces.length; i++) {
+    if (boardPieces[i].innerHTML != '') {
+      array.push(i);
+    }
+  }
+
+  if (array.length === 9) {
+    let winner = 'tie';
+  }
+
+  else {
+    checkWinner();
+  }
 }
 
 document.addEventListener('click', function(e) {
