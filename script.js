@@ -7,6 +7,15 @@ const playerOne = () => {
   return playerOneName;
 }
 
+const returnPlayerOne = () => {
+  let screenTwo = document.getElementById('screen-two');
+  screenTwo.classList.remove('hide');
+
+  let screenThree = document.getElementById('screen-three');
+  screenThree.classList.add('hide');
+}
+
+
 const playerTwoChoice = () => {
   let playerTwoOptions = document.querySelector("input[name='player-two']");
 
@@ -74,6 +83,9 @@ const submitTwo = () => {
   let button = document.getElementById('submit-two');
   button.classList.add('hide');
 
+  let backButton = document.getElementById('go-back-one');
+  backButton.classList.add('hide');
+
   let choice = playerTwoChoice();
   if (choice === 'human') {
     let playerTwoInfo = document.getElementById('human-player-two');
@@ -82,6 +94,20 @@ const submitTwo = () => {
   else if (choice === 'computer') {
     startGame();
   }
+}
+
+const returnPlayerTwo = () => {
+  let form = document.getElementById('player-two-options');
+  form.classList.remove('hide');
+
+  let button = document.getElementById('submit-two');
+  button.classList.remove('hide');
+
+  let backButton = document.getElementById('go-back-one');
+  backButton.classList.remove('hide');
+
+  let playerTwoInfo = document.getElementById('human-player-two');
+  playerTwoInfo.classList.add('hide');
 }
 
 const startGame = () => {
@@ -94,8 +120,9 @@ const startGame = () => {
   let sidebar = document.getElementById('sidebar');
   sidebar.classList.remove('hide');
 
+  let currentPlayerName = playerOne();
   let currentPlayer = document.querySelector('.current-player');
-  currentPlayer.innerHTML = "Player One's Turn";
+  currentPlayer.innerHTML = currentPlayerName + "'s Turn";
 }
 
 const newGame = () => {
@@ -167,7 +194,6 @@ const compChoice = () => {
 const placeMarker = (e) => {
   if (e.target.innerHTML === '') {
     let currentPlayer = keepTrack();
-    console.log(currentPlayer);
     let choice = playerTwoChoice();
     let div = document.querySelector('.current-player');
 
@@ -191,24 +217,36 @@ const placeMarker = (e) => {
     }
   }
   checkWinner();
-  winnerScreen();
 }
 
 const checkWinner = () => {
   let boardPieces = document.querySelectorAll('.board-piece');
 
+  let winningCombos = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9],
+    [1,4,7],
+    [2,5,8],
+    [3,6,9],
+    [1,5,9],
+    [3,5,7]
+  ];
+
+  let array = [];
+
+
   for (i=0; i < boardPieces.length; i++) {
-    if (boardPieces[i].innerHTML === boardPieces[i + 1].innerHTML
-        && boardPieces[i].innerHTML === boardPieces[i + 2].innerHTML
-        ) {
-            if (boardPieces[i].innerHTML === 'X') {
-
-            }
-            if (boardPieces[i].innerHTML === 'O') {
-
-            }
-          }
+    for (j=0; j < winningCombos.length; j++) {
+      for (k=0; k < winningCombos[j].length; k++) {
+        if (boardPieces[i].id === winningCombos[j][k]) {
+          array.push(boardPieces[i].id);
+        }
+      }
+    }
   }
+
+  console.log(array);
 }
 
 const winnerScreen = () => {
@@ -244,4 +282,6 @@ document.addEventListener('click', function(e) {
   if (e.target.id === 'new-game') newGame();
   if (e.target.classList.contains('board-piece')) placeMarker(e);
   if (e.target.name === 'player-two') changeButton();
+  if (e.target.id === 'go-back-one') returnPlayerOne();
+  if (e.target.id === 'go-back-two') returnPlayerTwo();
 });

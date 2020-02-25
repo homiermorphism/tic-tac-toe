@@ -19,7 +19,7 @@
     <!-- screen two - player one info -->
 
     <div class="player hide" id="screen-two">
-      <b>Player One (X)</b>
+      <div class="screen-header"><b><u>Player One (X)</u></b></div>
       <br>
       <div id="input-one">
         <input type="text"
@@ -33,12 +33,13 @@
     <!-- screen three - player two info-->
 
     <div class="player hide" id="screen-three">
-      <b>Player Two (O)</b>
+      <div class="screen-header"><b><u>Player Two (O)</u></b></div>
       <br>
       <form id="player-two-options">
         <input type="radio" name="player-two" value="human">Human
         <input type="radio" name="player-two" value="computer">Computer
       </form>
+      <button class="submit-btn" id="go-back-one">Go Back</button>
       <button class="submit-btn" id="submit-two">Submit</button>
 
       <div class="hide" id="human-player-two">
@@ -48,6 +49,7 @@
           class="input"
           placeholder="enter name">
         </div>
+        <button class="submit-btn" id="go-back-two">Go Back</button>
         <button class="submit-btn" id="submit-three">Start Game</button>
       </div>
     </div>
@@ -56,6 +58,7 @@
     <div class="sidebar hide" id="sidebar">
 
       <button id="new-game">New Game</button>
+      <button id="new-players">New Players</button>
     </div>
 
 
