@@ -15,6 +15,23 @@ const returnPlayerOne = () => {
   screenThree.classList.add('hide');
 }
 
+const newPlayers = () => {
+  let board = document.querySelector('.board-container');
+  board.classList.add('hide');
+
+  let gameButton = document.getElementById('new-game');
+  gameButton.classList.add('hide');
+
+  let playersButton = document.getElementById('new-players');
+  playersButton.classList.add('hide');
+
+  let winnerScreen = document.querySelector('.winner-screen');
+  winnerScreen.classList.add('hide');
+
+  resetGame();
+
+  start();
+}
 
 const playerTwoChoice = () => {
   let playerTwoOptions = document.querySelector("input[name='player-two']");
@@ -221,58 +238,65 @@ const placeMarker = (e) => {
 
 const checkWinner = () => {
   let boardPieces = document.querySelectorAll('.board-piece');
+  let winScreen = document.querySelector('.winner-screen');
+  let winner = '';
 
   let winningCombos = [
-    [1,2,3],
-    [4,5,6],
-    [7,8,9],
+    // [ 0  1  2 ]
+    // [ 3  4  5 ]
+    // [ 6  7  8 ]
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
     [1,4,7],
     [2,5,8],
-    [3,6,9],
-    [1,5,9],
-    [3,5,7]
+    [0,4,8],
+    [2,4,6]
   ];
 
-  let array = [];
-
-
-  for (i=0; i < boardPieces.length; i++) {
-    for (j=0; j < winningCombos.length; j++) {
-      for (k=0; k < winningCombos[j].length; k++) {
-        if (boardPieces[i].id === winningCombos[j][k]) {
-          array.push(boardPieces[i].id);
+  for (i=0; i < winningCombos.length; i++) {
+    let x = winningCombos[i];
+    if (boardPieces[x[0]].innerHTML === boardPieces[x[1]].innerHTML &&
+        boardPieces[x[0]].innerHTML === boardPieces[x[2]].innerHTML &&
+        boardPieces[x[0]].innerHTML != '')
+        {
+          if (boardPieces[x[0]].innerHTML === 'X') {
+            winner = playerOne();
+          }
+          else if (boardPieces[x[0]].innerHTML === 'O') {
+            winner = playerTwo();
+          }
+          winnerScreen();
         }
-      }
-    }
   }
-
-  console.log(array);
-}
-
-const winnerScreen = () => {
-  let wScreen = document.querySelector('.winner-screen');
-  wScreen.classList.remove('hide');
-
-  let gameBoard = document.querySelector('.board-container');
-  gameBoard.classList.add('hide');
-
   let array = [];
-  let boardPieces = document.querySelectorAll('.board-piece');
-
   for (i=0; i < boardPieces.length; i++) {
     if (boardPieces[i].innerHTML != '') {
       array.push(i);
     }
   }
-
   if (array.length === 9) {
-    let winner = 'tie';
+    winner = 'tie';
+    winnerScreen();
   }
 
+  if (winner === 'tie') {
+    winScreen.innerHTML = "It's a tie!";
+  }
   else {
-    checkWinner();
+    winScreen.innerHTML = winner + ' Wins!';
   }
 }
+
+const winnerScreen = () => {
+  let winScreen = document.querySelector('.winner-screen');
+  winScreen.classList.remove('hide');
+
+  let gameBoard = document.querySelector('.board-container');
+  gameBoard.classList.add('hide');
+}
+
 
 document.addEventListener('click', function(e) {
   if (e.target.id === 'start') start();
@@ -284,4 +308,5 @@ document.addEventListener('click', function(e) {
   if (e.target.name === 'player-two') changeButton();
   if (e.target.id === 'go-back-one') returnPlayerOne();
   if (e.target.id === 'go-back-two') returnPlayerTwo();
+  if (e.target.id === 'new-players') newPlayers();
 });
