@@ -35,14 +35,21 @@ h1 {
   display: inline;
 }
 
-.player {
+.player, .winner-screen {
   font-family: 'Satisfy', cursive;
-  font-size: 150%;
-  width: 300px;
+  width: 500px;
   text-align: center;
   padding: 20px;
   color: #283593;
   margin: auto;
+}
+
+.player {
+  font-size: 150%;
+}
+
+.winner-screen {
+  font-size: 300%;
 }
 
 .current-player {
