@@ -130,6 +130,7 @@ const startGame = () => {
 
   let currentPlayerName = playerOne();
   let currentPlayer = document.querySelector('.current-player');
+  currentPlayer.classList.remove('hide');
   currentPlayer.innerHTML = currentPlayerName + "'s Turn";
 }
 
@@ -141,6 +142,11 @@ const newGame = () => {
 
   let winnerScreen = document.querySelector('.winner-screen');
   winnerScreen.classList.add('hide');
+
+  let currentPlayer = document.querySelector('.current-player');
+  currentPlayer.classList.remove('hide');
+
+  let boardPieces = document.querySelectorAll('.board-piece');
 }
 
 let currentPlayerArray = [1];
@@ -149,7 +155,10 @@ const resetGame = () => {
   let boardPieces = document.querySelectorAll('.board-piece');
 
   for (i=0; i < boardPieces.length; i++) {
-    boardPieces[i].innerHTML = '';
+    boardPieces[i].classList.remove('X');
+    boardPieces[i].classList.remove('O');
+    boardPieces[i].style.setProperty('--image', "var(--image)");
+    boardPieces[i].style.setProperty('background-color', "inherit");
   }
 
   xDivs = [];
@@ -180,16 +189,17 @@ const compChoice = () => {
   let boardPieces = document.querySelectorAll('.board-piece');
   let array = [];
   let choice = '';
-
+  // store the empty squares
   for (i=0; i < 9; i++) {
-    if (boardPieces[i].innerHTML === '') {
+    if (boardPieces[i].classList.value === 'board-piece') {
       array.push(i);
     }
   }
-
+  // if there are no empty squares, then display the winner
   if (array.length === 0) {
     winnerScreen();
   }
+  // choose one of the empty squares
   else {
     choice = array[Math.floor(Math.random()*array.length)];
     boardPieces[choice].click();
@@ -200,27 +210,30 @@ const compChoice = () => {
 // when currentPlayer === 'player one', that means the user that CLICKED
 // was player one, so when setting the name, it's actually player two's turn
 const placeMarker = (e) => {
-  if (e.target.innerHTML === '') {
+  if (e.target.classList.value === 'board-piece') {
     let currentPlayer = keepTrack();
     let choice = playerTwoChoice();
     let div = document.querySelector('.current-player');
 
     if (currentPlayer === 'player one') {
       if (choice === 'human') {
-        e.target.innerHTML = 'X';
+        e.target.classList.add('X');
+        e.target.style.setProperty('--image', "url('x.png')");
         xDivs.push(Number(e.target.id));
         div.innerHTML = playerTwo() + "'s Turn";
       }
       else {
-        e.target.innerHTML = 'X';
+        e.target.classList.add('X');
         xDivs.push(Number(e.target.id));
+        e.target.style.setProperty('--image', "url('x.png')");
         checkWinner();
         compChoice();
         div.innerHTML = playerOne() + "'s Turn";
       }
     }
     else if (currentPlayer === 'player two') {
-      e.target.innerHTML = 'O';
+      e.target.classList.add('O');
+      e.target.style.setProperty('--image', "url('o.png')");
       oDivs.push(Number(e.target.id));
       div.innerHTML = playerOne() + "'s Turn";
     }
@@ -249,26 +262,35 @@ const checkWinner = () => {
 
   for (i=0; i < winningCombos.length; i++) {
     let x = winningCombos[i];
-    if (boardPieces[x[0]].innerHTML === boardPieces[x[1]].innerHTML &&
-        boardPieces[x[0]].innerHTML === boardPieces[x[2]].innerHTML &&
-        boardPieces[x[0]].innerHTML != '')
+      if (boardPieces[x[0]].classList.value === boardPieces[x[1]].classList.value &&
+        boardPieces[x[0]].classList.value === boardPieces[x[2]].classList.value &&
+        boardPieces[x[0]].classList.value != 'board-piece')
         {
-          if (boardPieces[x[0]].innerHTML === 'X') {
+          if (boardPieces[x[0]].classList.contains('X')) {
             winner = playerOne();
+            boardPieces[x[0]].style.setProperty('background-color', "#bbdefb");
+            boardPieces[x[1]].style.setProperty('background-color', "#bbdefb");
+            boardPieces[x[2]].style.setProperty('background-color', "#bbdefb");
           }
-          else if (boardPieces[x[0]].innerHTML === 'O') {
+          else if (boardPieces[x[0]].classList.contains('O') && winner != playerOne()) {
             winner = playerTwo();
+            boardPieces[x[0]].style.setProperty('background-color', "#bbdefb");
+            boardPieces[x[1]].style.setProperty('background-color', "#bbdefb");
+            boardPieces[x[2]].style.setProperty('background-color', "#bbdefb");
           }
           winnerScreen();
         }
   }
+  // store the non-empty pieces in an array, then declare a tie if they
+  // are all full but there was no winner
   let array = [];
   for (i=0; i < boardPieces.length; i++) {
-    if (boardPieces[i].innerHTML != '') {
+    if (boardPieces[i].classList.value != 'board-piece') {
       array.push(i);
     }
   }
-  if (array.length === 9) {
+
+  if (array.length === 9 && winner === '') {
     winner = 'tie';
     winnerScreen();
   }
@@ -276,7 +298,7 @@ const checkWinner = () => {
   if (winner === 'tie') {
     winScreen.innerHTML = "It's a tie!";
   }
-  else {
+  else if (winner != ''){
     winScreen.innerHTML = winner + ' Wins!';
   }
 }
@@ -285,8 +307,8 @@ const winnerScreen = () => {
   let winScreen = document.querySelector('.winner-screen');
   winScreen.classList.remove('hide');
 
-  let gameBoard = document.querySelector('.board-container');
-  gameBoard.classList.add('hide');
+  let currentPlayer = document.querySelector('.current-player');
+  currentPlayer.classList.add('hide');
 }
 
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Satisfy&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"></link>
-    <title></title>
+    <title>Tic-Tac-Toe</title>
   </head>
   <body>
 
@@ -63,14 +63,20 @@
     <!-- game board screen -->
     <div class="sidebar hide" id="sidebar">
 
-      <button id="new-game">New Game</button>
-      <button id="new-players">New Players</button>
+      <button class="sidebar-btn" id="new-game">New Game</button>
+      <button class="sidebar-btn" id="new-players">New Players</button>
     </div>
 
 
+    <!-- winner screen -->
+
+    <div class="winner-screen hide">
+    </div>
+    
     <div class="board-container hide">
       <div class="current-player">
       </div>
+
       <div class="game-board">
         <div id="1" class="board-piece"></div>
         <div id="2" class="board-piece"></div>
@@ -84,9 +90,6 @@
       </div>
     </div>
 
-    <!-- winner screen -->
-    <div class="winner-screen hide">
-    </div>
 
 
 
