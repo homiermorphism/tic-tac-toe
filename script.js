@@ -1,3 +1,4 @@
+// get player 1 name
 const playerOne = () => {
   let playerOneName = 'Player One';
   playerOneName = document.getElementById('player-one').value;
@@ -7,6 +8,7 @@ const playerOne = () => {
   return playerOneName;
 }
 
+// from player 2 info page, return to the player 1 info page
 const returnPlayerOne = () => {
   let screenTwo = document.getElementById('player-one-info');
   screenTwo.classList.remove('hide');
@@ -15,6 +17,7 @@ const returnPlayerOne = () => {
   screenThree.classList.add('hide');
 }
 
+// reset the game and enter new players
 const newPlayers = () => {
   let board = document.querySelector('.board-container');
   board.classList.add('hide');
@@ -29,6 +32,7 @@ const newPlayers = () => {
   start();
 }
 
+// returns whether the user chose human or computer for player 2
 const playerTwoChoice = () => {
   let playerTwoOptions = document.querySelector("input[name='player-two']");
 
@@ -43,8 +47,8 @@ const playerTwoChoice = () => {
   console.log(choice);
 }
 
-// when the user clicks on the computer option, change the "submit" button
-// to the "start game" button
+// on player 2 info page, when the user clicks on the computer option,
+// change the "submit" button to the "start game" button
 const changeButton = () => {
   let button = document.getElementById('submit-player-two-choice');
   let choice = playerTwoChoice();
@@ -57,6 +61,7 @@ const changeButton = () => {
   }
 }
 
+// get player 2 name
 const playerTwo = () => {
   let choice = playerTwoChoice();
   let playerTwoName = 'Player Two';
@@ -74,28 +79,8 @@ const playerTwo = () => {
   return playerTwoName;
 }
 
-const start = () => {
-  let startButton = document.getElementById('start');
-  startButton.classList.add('hide');
-
-  let screenTwo = document.getElementById('player-one-info');
-  screenTwo.classList.remove('hide');
-}
-
-const submitPlayerOne = () => {
-  let screenTwo = document.getElementById('player-one-info');
-  screenTwo.classList.add('hide');
-
-  let screenThree = document.getElementById('player-two-info');
-  screenThree.classList.remove('hide');
-
-  let form = document.getElementById('player-two-form');
-  form.classList.remove('hide');
-
-  let playerTwoName = document.getElementById('human-name-two');
-  playerTwoName.classList.add('hide');
-}
-
+// if player 2 choice is human, let them enter a name
+// if player 2 choice is computer, start the game
 const submitPlayerTwo = () => {
   let form = document.getElementById('player-two-form');
   form.classList.add('hide');
@@ -110,12 +95,38 @@ const submitPlayerTwo = () => {
   }
 }
 
+// from the part of the player 2 info screen where you enter a human name,
+// go back and choose between human and computer again
 const returnPlayerTwo = () => {
   let form = document.getElementById('player-two-form');
   form.classList.remove('hide');
 
   let playerTwoInfo = document.getElementById('human-name-two');
   playerTwoInfo.classList.add('hide');
+}
+
+// very first start button, starts process of choosing players
+const start = () => {
+  let startButton = document.getElementById('start');
+  startButton.classList.add('hide');
+
+  let screenTwo = document.getElementById('player-one-info');
+  screenTwo.classList.remove('hide');
+}
+
+// stores the player 1 info and moves to the player 2 info page
+const submitPlayerOne = () => {
+  let screenTwo = document.getElementById('player-one-info');
+  screenTwo.classList.add('hide');
+
+  let screenThree = document.getElementById('player-two-info');
+  screenThree.classList.remove('hide');
+
+  let form = document.getElementById('player-two-form');
+  form.classList.remove('hide');
+
+  let playerTwoName = document.getElementById('human-name-two');
+  playerTwoName.classList.add('hide');
 }
 
 const startGame = () => {
@@ -166,6 +177,7 @@ const resetGame = () => {
   currentPlayerArray = [1];
 }
 
+// keep track of the last player to place a marker
 const keepTrack = () => {
   let last = currentPlayerArray[currentPlayerArray.length - 1];
 
@@ -189,21 +201,24 @@ const compChoice = () => {
   let boardPieces = document.querySelectorAll('.board-piece');
   let array = [];
   let choice = '';
-  // store the empty squares
-  for (i=0; i < 9; i++) {
-    if (boardPieces[i].classList.value === 'board-piece') {
-      array.push(i);
+  let winner = checkWinner();
+  if (winner === '') {
+    // store the empty squares
+    for (i=0; i < 9; i++) {
+      if (boardPieces[i].classList.value === 'board-piece') {
+        array.push(i);
+      }
     }
-  }
-  // if there are no empty squares, then display the winner
-  if (array.length === 0) {
-    winnerScreen();
-  }
-  // choose one of the empty squares
-  else {
-    choice = array[Math.floor(Math.random()*array.length)];
-    boardPieces[choice].click();
-    oDivs.push(choice);
+    // if there are no empty squares, then display the winner
+    if (array.length === 0) {
+      winnerScreen();
+    }
+    // choose one of the empty squares
+    else {
+      choice = array[Math.floor(Math.random()*array.length)];
+      boardPieces[choice].click();
+      oDivs.push(choice);
+    }
   }
 }
 
@@ -226,7 +241,7 @@ const placeMarker = (e) => {
         e.target.classList.add('X');
         xDivs.push(Number(e.target.id));
         e.target.style.setProperty('--image', "url('x.png')");
-        checkWinner();
+        winnerScreen();
         compChoice();
         div.innerHTML = playerOne() + "'s Turn";
       }
@@ -238,7 +253,7 @@ const placeMarker = (e) => {
       div.innerHTML = playerOne() + "'s Turn";
     }
   }
-  checkWinner();
+  winnerScreen();
 }
 
 const checkWinner = () => {
@@ -268,17 +283,13 @@ const checkWinner = () => {
         {
           if (boardPieces[x[0]].classList.contains('X')) {
             winner = playerOne();
-            boardPieces[x[0]].style.setProperty('background-color', "#bbdefb");
-            boardPieces[x[1]].style.setProperty('background-color', "#bbdefb");
-            boardPieces[x[2]].style.setProperty('background-color', "#bbdefb");
           }
           else if (boardPieces[x[0]].classList.contains('O') && winner != playerOne()) {
             winner = playerTwo();
-            boardPieces[x[0]].style.setProperty('background-color', "#bbdefb");
-            boardPieces[x[1]].style.setProperty('background-color', "#bbdefb");
-            boardPieces[x[2]].style.setProperty('background-color', "#bbdefb");
           }
-          winnerScreen();
+          boardPieces[x[0]].style.setProperty('background-color', "#bbdefb");
+          boardPieces[x[1]].style.setProperty('background-color', "#bbdefb");
+          boardPieces[x[2]].style.setProperty('background-color', "#bbdefb");
         }
   }
   // store the non-empty pieces in an array, then declare a tie if they
@@ -292,23 +303,27 @@ const checkWinner = () => {
 
   if (array.length === 9 && winner === '') {
     winner = 'tie';
-    winnerScreen();
   }
 
-  if (winner === 'tie') {
-    winScreen.innerHTML = "It's a tie!";
-  }
-  else if (winner != ''){
-    winScreen.innerHTML = winner + ' Wins!';
-  }
+  return winner;
 }
 
 const winnerScreen = () => {
-  let winScreen = document.querySelector('.winner-screen');
-  winScreen.classList.remove('hide');
+  let winner = checkWinner();
+  if (winner != '') {
+    let winScreen = document.querySelector('.winner-screen');
+    winScreen.classList.remove('hide');
 
-  let currentPlayer = document.querySelector('.current-player');
-  currentPlayer.classList.add('hide');
+    let currentPlayer = document.querySelector('.current-player');
+    currentPlayer.classList.add('hide');
+
+    if (winner === 'tie') {
+      winScreen.innerHTML = "It's a tie!";
+    }
+    else if (winner != ''){
+      winScreen.innerHTML = winner + ' Wins!';
+    }
+  }
 }
 
 
