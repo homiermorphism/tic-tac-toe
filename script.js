@@ -8,10 +8,10 @@ const playerOne = () => {
 }
 
 const returnPlayerOne = () => {
-  let screenTwo = document.getElementById('screen-two');
+  let screenTwo = document.getElementById('player-one-info');
   screenTwo.classList.remove('hide');
 
-  let screenThree = document.getElementById('screen-three');
+  let screenThree = document.getElementById('player-two-info');
   screenThree.classList.add('hide');
 }
 
@@ -19,17 +19,13 @@ const newPlayers = () => {
   let board = document.querySelector('.board-container');
   board.classList.add('hide');
 
-  let gameButton = document.getElementById('new-game');
-  gameButton.classList.add('hide');
-
-  let playersButton = document.getElementById('new-players');
-  playersButton.classList.add('hide');
+  let sidebar = document.getElementById('sidebar');
+  sidebar.classList.add('hide');
 
   let winnerScreen = document.querySelector('.winner-screen');
   winnerScreen.classList.add('hide');
 
   resetGame();
-
   start();
 }
 
@@ -44,12 +40,13 @@ const playerTwoChoice = () => {
     choice = 'computer';
   }
   return choice;
+  console.log(choice);
 }
 
 // when the user clicks on the computer option, change the "submit" button
 // to the "start game" button
 const changeButton = () => {
-  let button = document.getElementById('submit-two');
+  let button = document.getElementById('submit-player-two-choice');
   let choice = playerTwoChoice();
 
   if (choice === 'human') {
@@ -81,31 +78,31 @@ const start = () => {
   let startButton = document.getElementById('start');
   startButton.classList.add('hide');
 
-  let screenTwo = document.getElementById('screen-two');
+  let screenTwo = document.getElementById('player-one-info');
   screenTwo.classList.remove('hide');
 }
 
-const submitOne = () => {
-  let screenTwo = document.getElementById('screen-two');
+const submitPlayerOne = () => {
+  let screenTwo = document.getElementById('player-one-info');
   screenTwo.classList.add('hide');
 
-  let screenThree = document.getElementById('screen-three');
+  let screenThree = document.getElementById('player-two-info');
   screenThree.classList.remove('hide');
+
+  let form = document.getElementById('player-two-form');
+  form.classList.remove('hide');
+
+  let playerTwoName = document.getElementById('human-name-two');
+  playerTwoName.classList.add('hide');
 }
 
-const submitTwo = () => {
-  let form = document.getElementById('player-two-options');
+const submitPlayerTwo = () => {
+  let form = document.getElementById('player-two-form');
   form.classList.add('hide');
-
-  let button = document.getElementById('submit-two');
-  button.classList.add('hide');
-
-  let backButton = document.getElementById('go-back-one');
-  backButton.classList.add('hide');
 
   let choice = playerTwoChoice();
   if (choice === 'human') {
-    let playerTwoInfo = document.getElementById('human-player-two');
+    let playerTwoInfo = document.getElementById('human-name-two');
     playerTwoInfo.classList.remove('hide');
   }
   else if (choice === 'computer') {
@@ -114,21 +111,15 @@ const submitTwo = () => {
 }
 
 const returnPlayerTwo = () => {
-  let form = document.getElementById('player-two-options');
+  let form = document.getElementById('player-two-form');
   form.classList.remove('hide');
 
-  let button = document.getElementById('submit-two');
-  button.classList.remove('hide');
-
-  let backButton = document.getElementById('go-back-one');
-  backButton.classList.remove('hide');
-
-  let playerTwoInfo = document.getElementById('human-player-two');
+  let playerTwoInfo = document.getElementById('human-name-two');
   playerTwoInfo.classList.add('hide');
 }
 
 const startGame = () => {
-  let screenThree = document.getElementById('screen-three');
+  let screenThree = document.getElementById('player-two-info');
   screenThree.classList.add('hide');
 
   let boardContainer = document.querySelector('.board-container');
@@ -223,6 +214,7 @@ const placeMarker = (e) => {
       else {
         e.target.innerHTML = 'X';
         xDivs.push(Number(e.target.id));
+        checkWinner();
         compChoice();
         div.innerHTML = playerOne() + "'s Turn";
       }
@@ -300,9 +292,9 @@ const winnerScreen = () => {
 
 document.addEventListener('click', function(e) {
   if (e.target.id === 'start') start();
-  if (e.target.id === 'submit-one') submitOne();
-  if (e.target.id === 'submit-two') submitTwo();
-  if (e.target.id === 'submit-three') startGame();
+  if (e.target.id === 'submit-player-one') submitPlayerOne();
+  if (e.target.id === 'submit-player-two-choice') submitPlayerTwo();
+  if (e.target.id === 'start-game') startGame();
   if (e.target.id === 'new-game') newGame();
   if (e.target.classList.contains('board-piece')) placeMarker(e);
   if (e.target.name === 'player-two') changeButton();

@@ -135,13 +135,13 @@ button {
   margin-top: 15vh;
 }
 
-#start-game {
+/* #start-game {
   height: 100px;
-  width: 200px;
+  width: 200px; 
   font-size: 150%;
   margin-right: auto;
   margin-left: auto;
-}
+} */
 
 button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);

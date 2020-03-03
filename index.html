@@ -18,7 +18,7 @@
 
     <!-- screen two - player one info -->
 
-    <div class="player hide" id="screen-two">
+    <div class="player hide" id="player-one-info">
       <div class="screen-header"><b><u>Player One (X)</u></b></div>
       <br>
       <div id="input-one">
@@ -27,22 +27,27 @@
         class="input"
         placeholder="enter name">
       </div>
-      <button class="submit-btn" id="submit-one">Submit</button>
+      <button class="submit-btn" id="submit-player-one">Submit</button>
     </div>
 
     <!-- screen three - player two info-->
 
-    <div class="player hide" id="screen-three">
+    <div class="player hide" id="player-two-info">
+
       <div class="screen-header"><b><u>Player Two (O)</u></b></div>
       <br>
-      <form id="player-two-options">
-        <input type="radio" name="player-two" value="human">Human
-        <input type="radio" name="player-two" value="computer">Computer
-      </form>
-      <button class="submit-btn" id="go-back-one">Go Back</button>
-      <button class="submit-btn" id="submit-two">Submit</button>
+      <div id="player-two-form">
 
-      <div class="hide" id="human-player-two">
+        <form id="player-two-options">
+          <input type="radio" name="player-two" value="human">Human
+          <input type="radio" name="player-two" value="computer">Computer
+        </form>
+
+        <button class="submit-btn" id="go-back-one">Go Back</button>
+        <button class="submit-btn" id="submit-player-two-choice">Submit</button>
+      </div>
+
+      <div class="hide" id="human-name-two">
         <div id="input-two">
           <input type="text"
           id="player-two"
@@ -50,8 +55,9 @@
           placeholder="enter name">
         </div>
         <button class="submit-btn" id="go-back-two">Go Back</button>
-        <button class="submit-btn" id="submit-three">Start Game</button>
+        <button class="submit-btn" id="start-game">Start Game</button>
       </div>
+
     </div>
 
     <!-- game board screen -->
