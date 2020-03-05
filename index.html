@@ -38,9 +38,18 @@
       <br>
       <div id="player-two-form">
 
-        <form id="player-two-options">
-          <input type="radio" name="player-two" value="human">Human
-          <input type="radio" name="player-two" value="computer">Computer
+        <form class="radio" id="player-two-options">
+          <label class="container">
+            <input type="radio" name="player-two" id="human" checked>
+            <span class="checkmark"></span>
+            <div class="label">Human</div>
+          </label>
+
+          <label class="container">
+            <input type="radio" name="player-two" id="computer">
+            <span class="checkmark"></span>
+            <div class="label">Computer</div>
+          </label>
         </form>
 
         <button class="submit-btn" id="go-back-one">Go Back</button>
@@ -60,9 +69,8 @@
 
     </div>
 
-    <!-- game board screen -->
+    <!-- sidebar -->
     <div class="sidebar hide" id="sidebar">
-
       <button class="sidebar-btn" id="new-game">New Game</button>
       <button class="sidebar-btn" id="new-players">New Players</button>
     </div>
@@ -72,7 +80,8 @@
 
     <div class="winner-screen hide">
     </div>
-    
+
+    <!-- game board -->
     <div class="board-container hide">
       <div class="current-player">
       </div>

@@ -36,7 +36,6 @@ const newPlayers = () => {
 const playerTwoChoice = () => {
   let playerTwoOptions = document.querySelector("input[name='player-two']");
 
-  let choice = 'computer';
   if (playerTwoOptions.checked) {
     choice = 'human';
   }
@@ -44,7 +43,6 @@ const playerTwoChoice = () => {
     choice = 'computer';
   }
   return choice;
-  console.log(choice);
 }
 
 // on player 2 info page, when the user clicks on the computer option,
@@ -168,13 +166,15 @@ const resetGame = () => {
   for (i=0; i < boardPieces.length; i++) {
     boardPieces[i].classList.remove('X');
     boardPieces[i].classList.remove('O');
-    boardPieces[i].style.setProperty('--image', "var(--image)");
-    boardPieces[i].style.setProperty('background-color', "inherit");
+    boardPieces[i].style.setProperty('--image', 'var(--image)');
+    boardPieces[i].style.setProperty('background-color', 'inherit');
   }
 
   xDivs = [];
   oDivs = [];
   currentPlayerArray = [1];
+  let div = document.querySelector('.current-player');
+  div.innerHTML = playerOne() + "'s Turn";
 }
 
 // keep track of the last player to place a marker
