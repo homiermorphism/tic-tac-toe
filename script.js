@@ -233,14 +233,14 @@ const placeMarker = (e) => {
     if (currentPlayer === 'player one') {
       if (choice === 'human') {
         e.target.classList.add('X');
-        e.target.style.setProperty('--image', "url('x.png')");
+        e.target.style.setProperty('--image', "url('images/x.png')");
         xDivs.push(Number(e.target.id));
         div.innerHTML = playerTwo() + "'s Turn";
       }
       else {
         e.target.classList.add('X');
         xDivs.push(Number(e.target.id));
-        e.target.style.setProperty('--image', "url('x.png')");
+        e.target.style.setProperty('--image', "url('images/x.png')");
         winnerScreen();
         compChoice();
         div.innerHTML = playerOne() + "'s Turn";
@@ -248,7 +248,7 @@ const placeMarker = (e) => {
     }
     else if (currentPlayer === 'player two') {
       e.target.classList.add('O');
-      e.target.style.setProperty('--image', "url('o.png')");
+      e.target.style.setProperty('--image', "url('images/o.png')");
       oDivs.push(Number(e.target.id));
       div.innerHTML = playerOne() + "'s Turn";
     }
